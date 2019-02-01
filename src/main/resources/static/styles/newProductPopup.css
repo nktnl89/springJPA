@@ -1,0 +1,47 @@
+.createProductPopup {
+    background-color: rgba(0,0,0,0.5);
+    min-height:100%;
+    position:fixed;
+    top:0px;
+    width:100%;
+    z-index: 5;
+}
+.createProductPopupContent {
+    align-content: space-between;
+    background-color: white;
+    box-shadow: 0px 0px 10px #000;
+    display: flex;
+    flex-flow: column;
+    margin: 40px auto 0px auto;
+    padding: 10px;
+    width: 80%;
+    min-height: 200px;
+}
+
+#createProductForm {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 300px;
+}
+.newProductHeader {
+    display: flex;
+    height: 100px;
+    margin-bottom: 20px;
+    justify-content: space-between;
+    flex-direction: row;
+}
+.newProductHeader.closeButton {
+    justify-content: center;
+    width: 10%;
+}
+.newProductHeader.closeButton:hover {
+    box-shadow: 0px 0px 10px #000;
+    cursor: pointer;
+    font-weight: bold;
+}
+input{
+    padding: 5px;
+    margin: 5px;
+}
