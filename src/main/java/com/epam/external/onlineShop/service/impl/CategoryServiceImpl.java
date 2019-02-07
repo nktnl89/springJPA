@@ -1,6 +1,6 @@
 package com.epam.external.onlineShop.service.impl;
 
-import com.epam.external.onlineShop.model.Category;
+import com.epam.external.onlineShop.entity.Category;
 import com.epam.external.onlineShop.repository.CategoryRepository;
 import com.epam.external.onlineShop.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;

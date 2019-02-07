@@ -1,17 +1,23 @@
-package com.epam.external.onlineShop.model;
+package com.epam.external.onlineShop.entity;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "Category")
 public class Category {
-    private String name;
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "category_id")
     private int id;
-    @OneToMany()
-    private List<Product> productList;
+    @Column(name = "name")
+    private String name;
+
+    @OneToMany(mappedBy = "category")
+    private List<Product> productList = new ArrayList<>();
 
     @Override
     public String toString() {
@@ -29,7 +35,7 @@ public class Category {
         this.id = id;
         this.setName("Категория " + id);
     }
-
+    @JsonIgnore
     public List<Product> getProductList() {
         return productList;
     }

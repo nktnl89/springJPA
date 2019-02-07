@@ -1,4 +1,4 @@
-package com.epam.external.onlineShop.model.enums;
+package com.epam.external.onlineShop.entity.enums;
 
 public enum UserRole {
     ADMIN,

@@ -19,15 +19,13 @@ function createPopupForSearch(){
 }
 
 function findProductsSubmit() {
-    let search = {}
-    search["search"] = $("#text-to-find").val();
     $("#btn-search").prop("disabled", true);
     $.ajax({
         type: "POST",
         contentType: "application/json",
         url: "/api/search",
-        data: JSON.stringify(search),
-        dataType: "text",
+        data: $("#text-to-find").val(),
+        dataType: "json",
         cache: false,
         timeout: 600000,
         success: function (data) {

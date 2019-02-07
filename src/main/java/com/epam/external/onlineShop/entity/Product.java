@@ -1,32 +1,35 @@
-package com.epam.external.onlineShop.model;
+package com.epam.external.onlineShop.entity;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "Product")
 public class Product implements Comparable<Product> {
     @Id
-    @GeneratedValue
-    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "product_id")
     private int id;
-    @Column(name = "imgSrc")
+
+    @Column(name = "img_src")
     private String img;
+
     @Column(name = "text")
     private String text;
+
     @Column(name = "price")
     private double price;
 
     @ManyToOne
-    @JoinColumn(name = "Category_id", nullable = false)
+    @JoinColumn(name = "category_category_id", nullable = false)
     private Category category;
 
-    @ManyToMany(mappedBy = "productList")
-    private List<Basket> basketList;
+    public Category getCategory() {
+        return category;
+    }
 
-    @ManyToOne
-    @JoinColumn(name = "Discount_id")
-    private Discount discount;
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
     @Override
     public String toString() {
@@ -35,19 +38,8 @@ public class Product implements Comparable<Product> {
                 ", img='" + img + '\'' +
                 ", text='" + text + '\'' +
                 ", price=" + price +
-                ", category=" + category +
                 '}';
     }
-
-    //private Discount discount;
-
-//    public Category getCategory() {
-//        return category;
-//    }
-//
-//    public void setCategory(Category category) {
-//        this.category = category;
-//    }
 
     public int getId() {
         return id;

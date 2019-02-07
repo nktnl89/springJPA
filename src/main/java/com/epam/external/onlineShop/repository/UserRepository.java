@@ -1,6 +1,6 @@
 package com.epam.external.onlineShop.repository;
 
-import com.epam.external.onlineShop.model.User;
+import com.epam.external.onlineShop.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

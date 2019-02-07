@@ -1,6 +1,6 @@
 package com.epam.external.onlineShop.controller;
 
-import com.epam.external.onlineShop.model.enums.UserRole;
+import com.epam.external.onlineShop.entity.enums.UserRole;
 import com.epam.external.onlineShop.manager.UserManager;
 import com.epam.external.onlineShop.service.CategoryService;
 import com.epam.external.onlineShop.service.ProductService;

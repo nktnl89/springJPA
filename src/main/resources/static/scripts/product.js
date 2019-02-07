@@ -1,8 +1,14 @@
-function Product(id, productPicture, productText, productPrice) {
+function Category(id, name) {
+    this.id = parseInt(id);
+    this.name = name;
+}
+
+function Product(id, productPicture, productText, productPrice, productCategory) {
     this.id = id;
     this.img = productPicture;
     this.text = productText;
     this.price = productPrice;
+    this.category = new Category(productCategory,"ff");
 
     let productClosure = this;
     this.getProductPrice = function() {
@@ -136,8 +142,6 @@ function saveChangesClick(product) {
         dataType: "json",
         cache: false,
         timeout: 600000,
-//        success: function (data) {
-//        }
     });
 }
 function deleteProductOnClick(deleteBtn) {
@@ -151,15 +155,19 @@ function deleteProductClick(productId) {
         cache: false,
         timeout: 600000,
         success: function (data) {
-            let product = $("#"+productId);
-            product.detach();
+            if(data == -1){
+                alert("С этим товаром есть заказы, удаление невозможно");
+            } else {
+                let product = $("#"+productId);
+                product.detach();
+            }
         }
     });
 }
 $(".createProduct").click(function (event) {
-    createPopupForNewProduct();
+    createPopupForNewProduct(event.target.parentNode.parentNode.getAttribute("id"));
 });
-function createPopupForNewProduct(){
+function createPopupForNewProduct(categoryId){
     $("<div>", {class: "createProductPopup"}).appendTo($("body"));
     $("<div>", {class: "createProductPopupContent"}).appendTo(".createProductPopup");
     $("<div>", {class: "newProductHeader"}).appendTo(".createProductPopupContent");
@@ -171,6 +179,7 @@ function createPopupForNewProduct(){
     $("<input>", {name: "img", type: "text", placeholder: "Путь до картинки"}).appendTo("#createProductForm");
     $("<input>", {name: "price", type: "text", placeholder: "Цена"}).appendTo("#createProductForm");
     $("<input>", {name: "text", type: "text", placeholder: "Описание"}).appendTo("#createProductForm");
+    $("<input>", {name: "categoryId", type: "hidden", value: categoryId}).appendTo("#createProductForm");
     $("<input>", {id: "createProductSubmit", type: "button", value: "Создать товар", onclick:"createProductForm(event)"}).appendTo("#createProductForm");
 }
 function createProductForm(event) {
@@ -178,7 +187,8 @@ function createProductForm(event) {
     let newProduct = new Product(0,
         $("input[name='img']").val(),
         $("input[name='text']").val(),
-        $("input[name='price']").val());
+        $("input[name='price']").val(),
+        $("input[name='categoryId']").val());
     createProductClick(newProduct);
     $(".createProductPopup").remove();
 };

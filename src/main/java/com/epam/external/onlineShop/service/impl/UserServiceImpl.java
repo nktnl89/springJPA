@@ -1,6 +1,6 @@
 package com.epam.external.onlineShop.service.impl;
 
-import com.epam.external.onlineShop.model.User;
+import com.epam.external.onlineShop.entity.User;
 import com.epam.external.onlineShop.repository.UserRepository;
 import com.epam.external.onlineShop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void addUser(User user) {
-        userRepository.saveAndFlush(user);
+        userRepository.save(user);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.epam.external.onlineShop.service;
 
-import com.epam.external.onlineShop.model.User;
+import com.epam.external.onlineShop.entity.User;
 
 import java.util.List;
 

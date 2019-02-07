@@ -1,15 +1,18 @@
-package com.epam.external.onlineShop.model;
+package com.epam.external.onlineShop.entity;
 
-import com.epam.external.onlineShop.model.enums.UserRole;
+import com.epam.external.onlineShop.entity.enums.UserRole;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "User")
 public class User{
     @Id
-    @GeneratedValue
-    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="user_id")
     private int id;
     @Column(name = "login")
     private String login;
@@ -18,6 +21,10 @@ public class User{
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private UserRole userRole;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<Basket> basketList = new ArrayList<>();
 
     @Override
     public String toString() {
@@ -37,6 +44,13 @@ public class User{
         this.id = id;
     }
 
+    public List<Basket> getBasketList() {
+        return basketList;
+    }
+
+    public void setBasketList(List<Basket> basketList) {
+        this.basketList = basketList;
+    }
 
     public String getLogin() {
         return login;

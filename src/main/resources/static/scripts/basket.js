@@ -97,7 +97,8 @@ function issueOrder() {
         cache: false,
         timeout: 600000,
         success: function () {
-            alert("улюлюлю");
+            basketClose();
+            alert("заказ оформлен!");
         }
     });
 }

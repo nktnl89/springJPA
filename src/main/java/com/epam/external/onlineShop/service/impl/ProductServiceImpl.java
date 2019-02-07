@@ -1,21 +1,17 @@
 package com.epam.external.onlineShop.service.impl;
 
-import com.epam.external.onlineShop.model.Product;
+import com.epam.external.onlineShop.entity.Product;
 import com.epam.external.onlineShop.repository.ProductRepository;
 import com.epam.external.onlineShop.service.ProductService;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Type;
 import java.util.*;
 
 @Service
 public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
-    private Gson gson = new Gson();
 
     @Override
     public List<Product> getProductList() {
@@ -28,13 +24,18 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void deleteProduct(int id) {
+    public int deleteProduct(int id) {
+        if (productRepository.getBasketWithProduct(id) > 0) {
+            return -1;
+            //    throw new CannotDeleteProductException("С этим товаром есть заказы, удаление невозможно");
+        }
         productRepository.deleteById(id);
+        return id;
     }
 
     @Override
     public void createProduct(Product product) {
-        productRepository.saveAndFlush(product);
+        productRepository.save(product);
     }
 
     @Override
@@ -47,7 +48,6 @@ public class ProductServiceImpl implements ProductService {
             }
         });
         return result;
-
     }
 
     @Override
@@ -55,20 +55,7 @@ public class ProductServiceImpl implements ProductService {
         receiverProduct.setText(sourceProduct.getText());
         receiverProduct.setPrice(sourceProduct.getPrice());
         receiverProduct.setImg(sourceProduct.getImg());
+        productRepository.save(receiverProduct);
         return receiverProduct;
     }
-
-    @Override
-    public List<Product> getProductListByJsonText(String jsonText) {
-        Type type = new TypeToken<Map<String, String>>() {
-        }.getType();
-        Map<String, String> searchMap = gson.fromJson(jsonText, type);
-        return getProductListByText(searchMap.get("search"));
-    }
-
-//    @Override
-//    public int getLastProductId() {
-//        Product maxIdProduct = Collections.max(productRepository.getProductList());
-//        return maxIdProduct.getId();
-//    }
 }

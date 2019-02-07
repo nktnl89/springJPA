@@ -1,20 +1,13 @@
 package com.epam.external.onlineShop.repository;
 
-import com.epam.external.onlineShop.model.Basket;
-import com.epam.external.onlineShop.model.Product;
-import com.epam.external.onlineShop.model.User;
+import com.epam.external.onlineShop.entity.Basket;
+import com.epam.external.onlineShop.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-
-import java.util.List;
+import org.springframework.data.repository.query.Param;
 
 public interface BasketRepository extends JpaRepository<Basket, Integer> {
+    @Query("select b from Basket b where b.user = :user and b.isClosed = 0")
+    Basket getBasketByUser(@Param("user") User user);
 
-//    void addProductToBasket(Basket basket, Product product);
-//
-//    void deleteProductFromBasket(Basket basket, Product product);
-//
-//    Basket getBasketByUser(User user);
-//
-//    List<Product> getProductList(Basket basket);
 }

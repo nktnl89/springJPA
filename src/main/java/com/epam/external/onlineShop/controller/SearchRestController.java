@@ -1,6 +1,6 @@
 package com.epam.external.onlineShop.controller;
 
-import com.epam.external.onlineShop.model.Product;
+import com.epam.external.onlineShop.entity.Product;
 import com.epam.external.onlineShop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +14,6 @@ public class SearchRestController {
 
     @PostMapping("/api/search")
     public List<Product> getSearchResult(@RequestBody String search) {
-        return productService.getProductListByJsonText(search);
+        return productService.getProductListByText(search);
     }
 }

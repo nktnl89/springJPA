@@ -19,11 +19,12 @@
                 <a href="/logout">Выход</a>
             </div>
             <div class="placeForBanner">мемасики для важных переговоров</div>
+            <div class="orders">Заказы</div>
         </div>
 
         <div class="products">
             <c:forEach var="category" items="${categories}">
-                <div class="category" id="category"+"${category.getId()}">
+                <div class="category" id="${category.getId()}">
                     <div class="categoryHeader">
                         <div class="categoryName">${category.getName()}</div>
                         <div class="createProduct">Создать новый продукт</div>

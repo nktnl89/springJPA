@@ -1,11 +1,9 @@
 package com.epam.external.onlineShop.controller;
 
-import com.epam.external.onlineShop.model.Product;
-import com.epam.external.onlineShop.model.User;
+import com.epam.external.onlineShop.entity.Order;
+import com.epam.external.onlineShop.entity.Product;
 import com.epam.external.onlineShop.manager.UserManager;
-import com.epam.external.onlineShop.service.BasketService;
-import com.epam.external.onlineShop.service.ProductService;
-import com.epam.external.onlineShop.service.UserService;
+import com.epam.external.onlineShop.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +22,10 @@ public class ProductRestController {
     @Autowired
     private BasketService basketService;
     @Autowired
+    private CategoryService categoryService;
+    @Autowired
+    private OrderService orderService;
+    @Autowired
     private HttpServletRequest httpServletRequest;
 
     @GetMapping
@@ -38,8 +40,7 @@ public class ProductRestController {
 
     @PostMapping
     public Product createProduct(@RequestBody Product product) {
-//        int newProductId = productService.getLastProductId();
-//        product.setId(++newProductId);
+        product.setCategory(categoryService.getCategoryById(product.getCategory().getId()));
         productService.createProduct(product);
         return product;
     }
@@ -50,20 +51,13 @@ public class ProductRestController {
     }
 
     @DeleteMapping("delete/{id}")
-    public void deleteProduct(@PathVariable int id) {
-        productService.deleteProduct(id);
+    public int deleteProduct(@PathVariable int id) {
+        return productService.deleteProduct(id);
     }
 
     @PostMapping("basket/add")
     public Product addToBasket(@RequestBody int productId) {
-        User currentUser = userManager.getUser();
-        if (currentUser != null) {
-            basketService.addProductToBasket(
-                    basketService.getBasketByUser(currentUser),
-                    productService.getProductById(productId));
-            return productService.getProductById(productId);
-        }
-        return null;
+        return basketService.addProductToBasket(productId);
     }
 
     @PostMapping("basket/delete")
@@ -76,13 +70,16 @@ public class ProductRestController {
 
     @PostMapping("basket/issue")
     public void issueOrder() {
-        //надо записывать состояние кудато
+        orderService.issueOrder();
     }
 
     @PostMapping("basket")
     public List<Product> getBasketProductList() {
-        return basketService.getProductList(
-                basketService.getBasketByUser(
-                        userManager.getUser()));
+        return basketService.getProductList();
+    }
+
+    @PostMapping("orders")
+    public List<Order> getOrderList() {
+        return orderService.getOrders();
     }
 }
