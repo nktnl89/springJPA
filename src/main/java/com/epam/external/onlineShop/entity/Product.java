@@ -20,7 +20,7 @@ public class Product implements Comparable<Product> {
     private double price;
 
     @ManyToOne
-    @JoinColumn(name = "category_category_id", nullable = false)
+    @JoinColumn(name = "category_category_id")
     private Category category;
 
     public Category getCategory() {
@@ -73,14 +73,22 @@ public class Product implements Comparable<Product> {
         this.price = price;
     }
 
-    public Product(int id, String img, String text, int price) {
+    public Product(int id, String img, String text, double price) {
         this.id = id;
         this.img = img;
         this.text = text;
         this.price = price;
     }
 
-    public Product(String img, String text, int price) {
+    public Product(int id, String img, String text, double price, Category category) {
+        this.id = id;
+        this.img = img;
+        this.text = text;
+        this.price = price;
+        this.category = category;
+    }
+
+    public Product(String img, String text, double price) {
         this.img = img;
         this.text = text;
         this.price = price;

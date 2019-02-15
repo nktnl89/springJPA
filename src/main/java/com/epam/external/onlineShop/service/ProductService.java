@@ -16,4 +16,6 @@ public interface ProductService {
     List<Product> getProductListByText(String text);
 
     Product copyPropertyValues(Product receiverProduct, Product sourceProduct);
+
+    void updateProduct(Product product);
 }

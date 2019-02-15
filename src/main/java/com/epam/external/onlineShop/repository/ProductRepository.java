@@ -1,11 +1,20 @@
 package com.epam.external.onlineShop.repository;
 
 import com.epam.external.onlineShop.entity.Product;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
-public interface ProductRepository extends JpaRepository<Product, Integer> {
-    @Query("select count(b) from Basket b join b.productList p where p.id = :productId")
-    int getBasketWithProduct(@Param("productId") int id);
+import java.util.List;
+
+public interface ProductRepository {
+
+    List<Product> findAll();
+
+    Product findById(int id);
+
+    void save(Product product);
+
+    int deleteById(int id);
+
+    int getCountBasketWithProduct(int id);
+
+    void updateProduct(Product product);
 }

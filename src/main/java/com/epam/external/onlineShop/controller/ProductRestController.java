@@ -47,7 +47,8 @@ public class ProductRestController {
 
     @PutMapping("update")
     public Product updateProduct(@RequestBody Product product) {
-        return productService.copyPropertyValues(productService.getProductById(product.getId()), product);
+        productService.updateProduct(product);
+        return product;
     }
 
     @DeleteMapping("delete/{id}")

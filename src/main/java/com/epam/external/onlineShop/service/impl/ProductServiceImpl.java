@@ -20,14 +20,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product getProductById(int id) {
-        return productRepository.findById(id).orElse(null);
+        return productRepository.findById(id);
     }
 
     @Override
     public int deleteProduct(int id) {
-        if (productRepository.getBasketWithProduct(id) > 0) {
+        if (productRepository.getCountBasketWithProduct(id) > 0) {
             return -1;
-            //    throw new CannotDeleteProductException("С этим товаром есть заказы, удаление невозможно");
         }
         productRepository.deleteById(id);
         return id;
@@ -57,5 +56,10 @@ public class ProductServiceImpl implements ProductService {
         receiverProduct.setImg(sourceProduct.getImg());
         productRepository.save(receiverProduct);
         return receiverProduct;
+    }
+
+    @Override
+    public void updateProduct(Product product) {
+        productRepository.updateProduct(product);
     }
 }
