@@ -1,9 +1,21 @@
 package com.epam.external.onlineShop.entity;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 @Entity
 @Table(name = "Product")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "product", propOrder = {
+        "id",
+        "img",
+        "text",
+        "price",
+        "category"},
+        namespace = "http://onlineShop.external.epam.com/product")
 public class Product implements Comparable<Product> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,9 +23,11 @@ public class Product implements Comparable<Product> {
     private int id;
 
     @Column(name = "img_src")
+    @XmlElement(required = true)
     private String img;
 
     @Column(name = "text")
+    @XmlElement(required = true)
     private String text;
 
     @Column(name = "price")
@@ -21,6 +35,7 @@ public class Product implements Comparable<Product> {
 
     @ManyToOne
     @JoinColumn(name = "category_category_id")
+    @XmlElement(required = true)
     private Category category;
 
     public Category getCategory() {

@@ -5,6 +5,7 @@ import com.epam.external.onlineShop.mapper.ProductMapper;
 import com.epam.external.onlineShop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -37,6 +38,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
+    @Cacheable("products")
     public List<Product> findAll() {
         return jdbcTemplate.query(QUERY_FIND_ALL, productMapper);
     }

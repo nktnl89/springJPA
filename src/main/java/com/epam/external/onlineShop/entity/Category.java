@@ -3,17 +3,27 @@ package com.epam.external.onlineShop.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "Category")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "category", propOrder = {
+        "id",
+        "name"},
+        namespace = "http://onlineShop.external.epam.com/category")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
     private int id;
     @Column(name = "name")
+    @XmlElement(required = true)
     private String name;
 
     @OneToMany(mappedBy = "category")
@@ -35,6 +45,7 @@ public class Category {
         this.id = id;
         this.setName("Категория " + id);
     }
+
     @JsonIgnore
     public List<Product> getProductList() {
         return productList;

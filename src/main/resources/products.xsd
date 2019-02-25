@@ -1,0 +1,39 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://onlineShop.external.epam.com"
+           targetNamespace="http://onlineShop.external.epam.com"
+           elementFormDefault="qualified">
+
+    <xs:element name="getProductRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getProductResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="product" type="tns:product"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="product">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="img" type="xs:string"/>
+            <xs:element name="text" type="xs:string"/>
+            <xs:element name="price" type="xs:double"/>
+            <xs:element name="category" type="tns:category"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="category">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
